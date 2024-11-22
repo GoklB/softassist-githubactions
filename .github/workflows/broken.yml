@@ -72,5 +72,5 @@ jobs:
     - name: Notify team
       run: echo "Deployment complete"
       env: 
-        NODE_ENV: SLACK_WEBHOOK
-        DEPLOY_KEY: ${{ secrets.SLACK_WEBHOOK }}
+        NODE_ENV: production
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
