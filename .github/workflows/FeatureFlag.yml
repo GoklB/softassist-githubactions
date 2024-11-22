@@ -1,0 +1,37 @@
+name: Test with Feature Flags
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test-feature-flags:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        feature-flag: [true, false]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up environment
+      run: |
+        echo "Setting up environment for FEATURE_FLAG=${{ matrix.feature-flag }}"
+
+    - name: Run tests with feature flag
+      env:
+        FEATURE_FLAG: ${{ matrix.feature-flag }}
+      run: |
+        echo "Running tests with FEATURE_FLAG=${{ env.FEATURE_FLAG }}"
+        # Replace the following line with your actual test command
+        if [ "$FEATURE_FLAG" = "true" ]; then
+          echo "Feature is enabled. Running tests for enabled state..."
+        else
+          echo "Feature is disabled. Running tests for disabled state..."
+        fi
+
+        # Example test command
+        ./run_tests.sh --feature-flag=$FEATURE_FLAG
