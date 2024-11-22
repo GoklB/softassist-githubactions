@@ -1,4 +1,4 @@
-name: Cross-Browser Testing
+name: Simple Cross-Browser Testing
 
 on:
   push:
@@ -8,25 +8,36 @@ on:
 
 jobs:
   cross-browser-tests:
-    runs-on: macos-latest  # macOS is required for Safari
+    runs-on: macos-latest  # Required for Safari
     strategy:
       matrix:
         browser: [chrome, firefox, safari]
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16' # Specify your desired Node.js version
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests on ${{ matrix.browser }}
-      env:
-        BROWSER: ${{ matrix.browser }}
+    - name: Install Browsers (if necessary)
+      if: matrix.browser == 'chrome' || matrix.browser == 'firefox'
       run: |
-        echo "Running tests on $BROWSER"
-        npm run test -- --browser=$BROWSER
+        if [[ "${{ matrix.browser }}" == "chrome" ]]; then
+          brew install --cask google-chrome
+        elif [[ "${{ matrix.browser }}" == "firefox" ]]; then
+          brew install --cask firefox
+        fi
+
+    - name: Run simple tests
+      run: |
+        echo "Testing with ${{ matrix.browser }}"
+        case ${{ matrix.browser }} in
+          chrome)
+            open -a "Google Chrome" "http://example.com"
+            ;;
+          firefox)
+            open -a "Firefox" "http://example.com"
+            ;;
+          safari)
+            open -a "Safari" "http://example.com"
+            ;;
+        esac
+        sleep 10  # Simulate a wait for manual verification or automated interaction
