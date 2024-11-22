@@ -1,0 +1,32 @@
+name: Cross-Browser Testing
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  cross-browser-tests:
+    runs-on: macos-latest  # macOS is required for Safari
+    strategy:
+      matrix:
+        browser: [chrome, firefox, safari]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16' # Specify your desired Node.js version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests on ${{ matrix.browser }}
+      env:
+        BROWSER: ${{ matrix.browser }}
+      run: |
+        echo "Running tests on $BROWSER"
+        npm run test -- --browser=$BROWSER
