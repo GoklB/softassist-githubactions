@@ -26,7 +26,7 @@ jobs:
 
     - name: Run tests
       run: npm test
-        env:
+      env:
           CI: true
 
     - name: Build
@@ -49,7 +49,7 @@ jobs:
 
     - name: Run linter
       run: npm run lint
-          env:
+      env:
           CI: true
 
   deploy:
@@ -71,4 +71,6 @@ jobs:
     steps:
     - name: Notify team
       run: echo "Deployment complete"
-      env: SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      env: 
+        NODE_ENV: SLACK_WEBHOOK
+        DEPLOY_KEY: ${{ secrets.SLACK_WEBHOOK }}
