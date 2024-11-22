@@ -2,14 +2,12 @@ name: CI Pipeline
 
 on:
   push:
-    branches:
-      - main
-      paths:
+    branches: [main]
+    paths:
         - 'docs/**'
   pull_request:
-    branches:
-      - main
-      paths:
+    branches: [main]
+    paths:
         - '!docs/**'
 
 jobs:
