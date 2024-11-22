@@ -1,0 +1,62 @@
+name: Test with MySQL
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test-mysql:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mysql-version: [5.7, 8.0]
+
+    services:
+      mysql:
+        image: mysql:${{ matrix.mysql-version }}
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: testdb
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: testpassword
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Wait for MySQL to be ready
+      run: |
+        echo "Waiting for MySQL ${{ matrix.mysql-version }} to be ready..."
+        for i in {1..30}; do
+          if mysqladmin ping -h 127.0.0.1 -u root --password=rootpassword --silent; then
+            echo "MySQL is ready!"
+            exit 0
+          fi
+          echo "Waiting for MySQL..."
+          sleep 2
+        done
+        echo "MySQL failed to start in time." && exit 1
+
+    - name: Install Dependencies
+      run: sudo apt-get install -y mysql-client
+
+    - name: Run tests
+      env:
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
+        DB_USER: testuser
+        DB_PASSWORD: testpassword
+        DB_NAME: testdb
+      run: |
+        echo "Running tests against MySQL ${{ matrix.mysql-version }}"
+        # Example: Replace this with your actual test commands
+        mysql -h $DB_HOST -P $DB_PORT -u $DB_USER --password=$DB_PASSWORD $DB_NAME -e "SHOW TABLES;"
