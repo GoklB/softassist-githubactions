@@ -1,0 +1,286 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_node10_ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 10
+      uses: actions/setup-node@v2
+      with:
+        node-version: '10'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node12_ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 12
+      uses: actions/setup-node@v2
+      with:
+        node-version: '12'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node14_ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 14
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node16_ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node10_windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 10
+      uses: actions/setup-node@v2
+      with:
+        node-version: '10'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node12_windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 12
+      uses: actions/setup-node@v2
+      with:
+        node-version: '12'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node14_windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 14
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node16_windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node10_macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 10
+      uses: actions/setup-node@v2
+      with:
+        node-version: '10'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node12_macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 12
+      uses: actions/setup-node@v2
+      with:
+        node-version: '12'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node14_macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 14
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
+
+  build_node16_macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
+    - name: Build
+      run: npm run build
+      env:
+        NODE_ENV: production
