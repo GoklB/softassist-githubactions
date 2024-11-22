@@ -54,7 +54,7 @@ jobs:
         CI: true
 
   deploy:
-    runs-on: windows-latest 
+    runs-on: ubuntu-latest 
     needs: build
 
     steps:
