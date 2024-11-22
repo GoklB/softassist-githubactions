@@ -67,7 +67,7 @@ jobs:
 
   notify:
     runs-on: ubuntu-latest
-    needs: deploy
+    needs: [build, lint, deploy]
 
     steps:
     - name: Notify team
