@@ -1,4 +1,4 @@
-name: Simple Cross-Browser Testing
+name: Simple Cross-Browser Test
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  cross-browser-tests:
+  browser-tests:
     runs-on: macos-latest  # Required for Safari
     strategy:
       matrix:
@@ -17,18 +17,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install Browsers (if necessary)
-      if: matrix.browser == 'chrome' || matrix.browser == 'firefox'
+    - name: Test ${{ matrix.browser }}
       run: |
-        if [[ "${{ matrix.browser }}" == "chrome" ]]; then
-          brew install --cask google-chrome
-        elif [[ "${{ matrix.browser }}" == "firefox" ]]; then
-          brew install --cask firefox
-        fi
-
-    - name: Run simple tests
-      run: |
-        echo "Testing with ${{ matrix.browser }}"
+        echo "Testing on ${{ matrix.browser }}"
         case ${{ matrix.browser }} in
           chrome)
             open -a "Google Chrome" "http://example.com"
@@ -40,4 +31,4 @@ jobs:
             open -a "Safari" "http://example.com"
             ;;
         esac
-        sleep 10  # Simulate a wait for manual verification or automated interaction
+        echo "$BROWSER launched successfully!"
