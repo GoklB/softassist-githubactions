@@ -32,6 +32,3 @@ jobs:
         else
           echo "Feature is disabled. Running tests for disabled state..."
         fi
-
-        # Example test command
-        ./run_tests.sh --feature-flag=$FEATURE_FLAG
